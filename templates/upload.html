@@ -1,0 +1,91 @@
+<!doctype html>
+
+<html>
+
+  <head>
+
+    <title>文件上传</title>
+
+    <script>
+
+      function uploadFile() {
+
+        var fileInput = document.getElementById('file');
+
+        var file = fileInput.files[0];
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.open('POST', '/upload');
+
+        xhr.upload.onprogress = function(event) {
+
+          if (event.lengthComputable) {
+
+            var progress = Math.round((event.loaded / event.total) * 100);
+
+            document.getElementById('progress').innerText = progress + '%';
+
+          }
+
+        };
+
+        xhr.onload = function() {
+
+          if (xhr.status === 200) {
+
+            document.getElementById('progress').innerText = '上传完成';
+
+          }
+
+        };
+
+        var formData = new FormData();
+
+        formData.append('file', file);
+
+        xhr.send(formData);
+
+      }
+
+      function updateProgress() {
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.open('POST', '/progress');
+
+        xhr.onload = function() {
+
+          if (xhr.status === 200) {
+
+            var progress = JSON.parse(xhr.responseText).progress;
+
+            document.getElementById('progress').innerText = progress + '%';
+
+          }
+
+        };
+
+        xhr.send();
+
+      }
+
+      setInterval(updateProgress, 1000); 
+
+    </script>
+
+  </head>
+
+  <body>
+
+    <h1>文件上传</h1>
+
+    <input type="file" id="file">
+
+    <button onclick="uploadFile()">上传</button>
+
+    <div id="progress"></div>
+
+  </body>
+
+</html>
