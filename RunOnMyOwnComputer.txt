@@ -1,4 +1,0 @@
-如果我在Alex的Macbook Air（自己的最初的电脑）上运行，请把python设置成这个：
-/Library/Frameworks/Python.framework/Versions/3.8/bin/python3
-则启动终端代码：
-/Library/Frameworks/Python.framework/Versions/3.8/bin/python3 /Users/alex/Desktop/Server/带用户密码的文件上传服务器3.0/start.py
